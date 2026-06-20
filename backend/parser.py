@@ -127,10 +127,11 @@ def parsuj_autorow(tekst_autorzy):
 
 #-----------------------------------------------------------------------------------
 
-sciezka = 'AI.bib'
-wyniki = parsuj_plik_bib(sciezka)
+if __name__ == '__main__':
+    sciezka = 'AI.bib'
+    wyniki = parsuj_plik_bib(sciezka)
 
-sciezka_json = 'wyniki_ai.json'
-zapisz_do_json(wyniki, sciezka_json)
+    sciezka_json = 'wyniki_ai.json'
+    zapisz_do_json(wyniki, sciezka_json)
 
-print(json.dumps(wyniki, indent=4, ensure_ascii=False))
+    print(json.dumps(wyniki, indent=4, ensure_ascii=False))
