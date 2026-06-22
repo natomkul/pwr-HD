@@ -84,7 +84,7 @@ def import_entries(conn, entries):
 
 
 if __name__ == '__main__':
-    bib_file = os.getenv('BIB_FILE', 'AI.bib')
+    bib_file = os.getenv('BIB_FILE', 'merged_bibliography.bib')
     print(f"Parsing {bib_file} ...")
     entries = parsuj_plik_bib(bib_file)
     print(f"  Found {len(entries)} entries.")

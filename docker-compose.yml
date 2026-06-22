@@ -27,10 +27,10 @@ services:
       DB_NAME:     ${POSTGRES_DB}
       DB_USER:     ${POSTGRES_USER}
       DB_PASSWORD: ${POSTGRES_PASSWORD}
-      BIB_FILE:    /app/AI.bib
+      BIB_FILE:    /app/merged_bibliography.bib
       CSV_OUTPUT:  /app/output/bibliography.csv
     volumes:
-      - ./AI.bib:/app/AI.bib:ro
+      - ./AI.bib:/app/merged_bibliography.bib:ro
       - ./output:/app/output
     command: sh -c "python importer.py && python export_csv.py"
 

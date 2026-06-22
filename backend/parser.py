@@ -28,13 +28,11 @@ def parsuj_plik_bib(sciezka_do_pliku):
         blok_jednolinijkowy = re.sub(r'\s+', ' ', blok)
 
         for pole in interesujace_pola:
-            szablon = rf'{pole}\s*=\s*[\{{\"]?(.*?)[\}}\"]?\s*(?:,|\s*$)'
+            szablon = rf'\b{re.escape(pole)}\s*=\s*(?:\{{((?:[^{{}}]|\{{[^{{}}]*\}})*)\}}|"([^"]*)"|([^,}}\n]+))'
             dopasowanie = re.search(szablon, blok_jednolinijkowy, re.IGNORECASE)
             
-            if dopasowanie and dopasowanie.group(1):
-                wartosc_raw = dopasowanie.group(1).strip()
-                
-                wartosc = wartosc_raw.rstrip(',').strip('}"')
+            if dopasowanie:
+                wartosc = next((g for g in dopasowanie.groups() if g is not None), "").strip()
                 
                 czysty_tekst = usun_znaki_specjalne(wartosc)
                 czysty_tekst = re.sub(r'\s+', ' ', czysty_tekst).strip()
@@ -128,7 +126,7 @@ def parsuj_autorow(tekst_autorzy):
 #-----------------------------------------------------------------------------------
 
 if __name__ == '__main__':
-    sciezka = 'AI.bib'
+    sciezka = 'merged_bibliography.bib'
     wyniki = parsuj_plik_bib(sciezka)
 
     sciezka_json = 'wyniki_ai.json'
